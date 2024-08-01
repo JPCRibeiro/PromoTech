@@ -1,0 +1,18 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/api/produtos"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos"
+  status = 200
+
+[[redirects]]
+  from = "/api/produtos/*"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/fichas/*"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/:splat"
+  status = 200
