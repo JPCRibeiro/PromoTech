@@ -7,6 +7,8 @@
   "routes": [
     { "src": "/api/produtos/(.*)", "dest": "/api/produtos.js" },
     { "src": "/api/fichas/(.*)", "dest": "/api/fichas.js" },
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/(.*)", "dest": "/$1" },
+    { "src": "/(.*)", "dest": "/api/produtos.js" },
+    { "src": "/(.*)", "dest": "/api/fichas.js" }
   ]
 }
