@@ -15,8 +15,8 @@
   ],
   "rewrites": [
     { "source": "/api/produtos", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos" },
-    { "source": "/api/produtos/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/$1" },
-    { "source": "/api/fichas/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/$1" },
+    { "source": "/api/produtos/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/$1" },
+    { "source": "/api/fichas/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
