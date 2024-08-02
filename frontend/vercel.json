@@ -1,7 +1,6 @@
 {
-  "functions": {
-    "api/produtos.js": {
-      "maxDuration": 30
-    }
-  }
+  "rewrites": [
+    { "source": "/api/produtos", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos" },
+    { "source": "/api/produtos/:path*", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/:path*" }
+  ]
 }
