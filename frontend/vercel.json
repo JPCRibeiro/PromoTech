@@ -1,6 +1,21 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "rewrites": [
     { "source": "/api/produtos", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos" },
-    { "source": "/api/produtos/:path*", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/:path*" }
+    { "source": "/api/produtos/:path*", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
