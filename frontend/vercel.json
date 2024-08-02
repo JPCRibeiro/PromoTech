@@ -1,7 +1,7 @@
 {
-  "redirects": [
-    { "source": "/api/produtos", "destination": "/api/produtos" },
-    { "source": "/api/produtos/(.*)", "destination": "/api/produtos/$1" }
+  "routes": [
+    { "src": "/api/produtos", "dest": "/api/produtos" },
+    { "src": "/api/produtos/(.*)", "dest": "/api/produtos/$1" }
   ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
