@@ -1,9 +1,7 @@
 {
-  "routes": [
-    { "src": "/api/produtos", "dest": "/api/produtos" },
-    { "src": "/api/produtos/(.*)", "dest": "/api/produtos/$1" }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "functions": {
+    "api/produtos.js": {
+      "maxDuration": 30
+    }
+  }
 }
