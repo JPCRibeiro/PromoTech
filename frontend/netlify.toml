@@ -18,8 +18,8 @@
   status = 200
 
 [[redirects]]
-  from = "/api/register"
-  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/register"
+  from = "/api/registro"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/registro"
   status = 200
   methods = ["POST"]
 
