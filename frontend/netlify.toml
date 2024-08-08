@@ -4,33 +4,36 @@
 
 [[redirects]]
   from = "/api/produtos"
-  to = "/api/produtos.js"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos"
   status = 200
 
 [[redirects]]
   from = "/api/produtos/*"
-  to = "/api/produtos.js"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/:splat"
   status = 200
 
 [[redirects]]
   from = "/api/fichas/*"
-  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/:splat"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/:splat"
   status = 200
 
 [[redirects]]
   from = "/api/register"
-  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/register"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/register"
   status = 200
+  methods = ["POST"]
 
 [[redirects]]
   from = "/api/login"
-  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/login"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/login"
   status = 200
+  methods = ["POST"]
 
 [[redirects]]
   from = "/api/user"
-  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user"
+  to = "https://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user"
   status = 200
+  methods = ["GET"]
 
 [[redirects]]
   from = "/*"
