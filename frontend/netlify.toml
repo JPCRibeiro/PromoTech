@@ -18,6 +18,21 @@
   status = 200
 
 [[redirects]]
+  from = "/api/register"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/register"
+  status = 200
+
+[[redirects]]
+  from = "/api/login"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/login"
+  status = 200
+
+[[redirects]]
+  from = "/api/user"
+  to = "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
