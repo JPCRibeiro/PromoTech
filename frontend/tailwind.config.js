@@ -4,6 +4,7 @@ export default {
   theme: {
     screens: {
       'media0': '0px',
+      'media480': '480px',
       'media600': '600px',
       'media768': '768px',
       'media900': '900px',

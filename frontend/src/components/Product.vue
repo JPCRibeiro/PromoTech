@@ -17,11 +17,11 @@ const updatePageTitle = (produto) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/produtos/${slug}`);
+    const response = await axios.get(`http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/${slug}`);
     if (response.data) {
       produto.value = response.data;
       updatePageTitle(produto.value);
-      const fichasResponse = await axios.get(`/api/fichas/${produto.value.id}`);
+      const fichasResponse = await axios.get(`http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/${produto.value.id}`);
       if (fichasResponse.data) {
         fichas.value = fichasResponse.data;
       }
@@ -75,7 +75,7 @@ const precoParcelado = (value) => precoOriginal(value) / 12;
         <table v-for="ficha in fichas" :key="ficha.id" class="mt-[24px] text-[18px] w-full media600:w-[60%] border-[2px] border-primary-color rounded-[5px]">
           <tbody class="rounded-[5px]">
             <tr class="border-b-[2px] border-primary-color" v-for="(value, key) in ficha.dados" :key="key">
-              <th class="text-start font-normal py-[10px] px-[15px] border-r-[2px] border-primary-color bg-[#bcd5e1]">{{ key }}</th>
+              <th class="text-start font-normal py-[10px] px-[15px] border-r-[2px] border-primary-color bg-[#0b468b3b]">{{ key }}</th>
               <td class="py-[10px] px-[15px] border-l-[2px] border-primary-color">{{ value }}</td>
             </tr>
           </tbody>
