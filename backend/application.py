@@ -51,20 +51,16 @@ def token_required(f):
         token = token.split(" ")[1]
 
     if not token:
-      return jsonify({'message': 'Token is missing!'}), 401
-
+      return jsonify({'message' : 'Token is missing!'}), 401
+    
     try:
-      if not isinstance(token, str):
-        raise ValueError('Expected a string value')
       data = jwt.decode(token, os.getenv('JWT_KEY'), algorithms=["HS256"])
       current_user = {
         "username": data['username'],
         "email": data['email']
       }
-    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError) as e:
-      return jsonify({'message': 'Token is invalid!'}), 401
-    except ValueError as ve:
-      return jsonify({'message': str(ve)}), 400
+    except:
+      return jsonify({'message' : 'Token is invalid!'}), 401
     return f(current_user, *args, **kwargs)
   return decorated
 
@@ -124,7 +120,7 @@ def register(cursor):
     existing_user = cursor.fetchone()
     
     if existing_user:
-      return jsonify({"error": "Email já registrado"}), 400
+      return jsonify({"error": "Email já registrado"}), 401
     
     password = request.json['password']
     hashed_password = generate_password_hash(password)

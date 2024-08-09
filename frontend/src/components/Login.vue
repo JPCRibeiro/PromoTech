@@ -38,14 +38,11 @@ const login = async () => {
       password: password.value,
     });
     localStorage.setItem('token', response.data.token)
-    const token = localStorage.getItem('token');
-    console.log(token)
     router.push('/').then(() => {
       location.reload();
     });
   } catch (err) {
     message.value = err.response.data.error;
-    console.log(message.value)
   } 
 };
 </script>

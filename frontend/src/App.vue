@@ -11,20 +11,16 @@ const user = ref(null)
 
 const userLogged = async () => {
   try {
-    const token = localStorage.getItem('token');
-    if (typeof token !== 'string') {
-      throw new Error('Token should be a string');
-    }
     const response = await axios.get('/api/user', {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
-    });
-    user.value = response.data;
+    })
+    user.value = response.data
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 
 onMounted(() => {
   if (localStorage.getItem('token')) {
