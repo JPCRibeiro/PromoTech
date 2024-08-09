@@ -1,13 +1,7 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
+    { "src": "package.json", "use": "@vercel/static-build", 
       "config": {
         "distDir": "dist"
       }
@@ -16,7 +10,10 @@
   "rewrites": [
     { "source": "/api/produtos", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos" },
     { "source": "/api/produtos/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/$1" },
-    { "source": "/api/fichas/(.*)", "destination": "/api/fichas.js" },
+    { "source": "/api/fichas/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas.js" },
+    { "source": "/api/registro", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/registro", "method": ["POST"] },
+    { "source": "/api/login", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/login", "method": ["POST"] },
+    { "source": "/api/user", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user", "method": ["GET"] },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
