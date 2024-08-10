@@ -18,7 +18,9 @@ const userLogged = async () => {
     })
     user.value = response.data
   } catch (error) {
-    console.log(error)
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+    }
   }
 }
 

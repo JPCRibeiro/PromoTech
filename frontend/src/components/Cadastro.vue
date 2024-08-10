@@ -47,8 +47,13 @@ const handleSubmit = async () => {
         });
         registered.value = true;
       } catch (error) {
-        if (error.response.status === 400) {
-          emailError.value = 'Email já cadastrado'
+        const errors = error.response.data.error;
+        
+        if (errors.includes('Email já cadastrado')) {
+            emailError.value = 'Email já cadastrado';
+        }
+        if (errors.includes('Nome de usuário já cadastrado')) {
+            usernameError.value = 'Nome de usuário já cadastrado';
         }
       }
   }

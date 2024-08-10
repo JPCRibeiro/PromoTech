@@ -16,7 +16,12 @@ conexao = mysql.connector.connect(
 )
 
 cursor = conexao.cursor(dictionary=True)
-cursor.execute('SELECT id, link FROM produtos')
+cursor.execute('''
+  SELECT produtos.id, produtos.link 
+  FROM produtos  
+  LEFT JOIN fichas ON produtos.id = fichas.produto_id 
+  WHERE fichas.produto_id IS NULL
+''')
 produtos = cursor.fetchall()
 
 header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'}
