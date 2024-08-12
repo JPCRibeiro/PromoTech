@@ -17,6 +17,6 @@ onMounted(() => {
 <template>
   <Hero/>
   <Slider/>
-  <Products/>
   <Promotion/>
+  <Products/>
 </template>
