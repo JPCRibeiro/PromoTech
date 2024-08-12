@@ -43,7 +43,7 @@ img {
   position: relative;
 }
 
-.input-box svg {
+.login-input-box svg {
   position: absolute;
   height: 20px;
   left: 16px;
@@ -65,6 +65,7 @@ img {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  font-weight: 500;
 }
 
 .register-input-box label {
@@ -80,12 +81,12 @@ img {
   color: rgb(35 38 43);
 }
 
-.register-input-box input {
-  padding: 12px 16px 12px 16px;
+.input-pad {
+  padding: 12px 16px 12px 16px !important;
 }
 
-.input-box input:focus {
-  border: 1px solid var(--primary-color);
+.check-pad {
+  padding: 12px 38px 12px 16px !important;
 }
 
 .input-box input:focus ~ label,
@@ -95,6 +96,11 @@ img {
   background: white;
   padding: 0px 5px;
   color: var(--primary-color);
+}
+
+.input-box input:focus ~ .input-error,
+.input-box input:not(:placeholder-shown) ~ .input-error {
+  color: red !important;
 }
 
 .register-input-box input:focus ~ label,
@@ -107,36 +113,6 @@ img {
   color: rgb(127, 133, 141);
 }
 
-ul li {
-  display: inline-block;
-  position: relative;
-}
-
-ul li a {
-  display: block;
-  padding: 20px 25px;
-  color: #FFF;
-  text-decoration: none;
-  text-align: center;
-  font-size: 20px;
-}
-
-ul li ul.dropdown li {
-  display: block;
-}
-
-ul li ul.dropdown {
-  width: 100%;
-  background: #8c52ff;
-  position: absolute;
-  z-index: 999;
-  display: none;
-}
-
-ul li a:hover {
-  background: #6d30e9;
-}
-
-ul li:hover ul.dropdown {
-  display: block;
+.input-box input:not(:focus) ~ .input-error {
+  color: red;
 }

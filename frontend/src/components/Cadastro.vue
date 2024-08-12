@@ -1,59 +1,73 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
+import inputField from './inputField.vue';
 
-const registered = ref(false)
-const username = ref('');
-const usernameError = ref('');
-const email = ref('');
-const emailError = ref('');
-const password = ref('');
-const passwordError = ref('');
-const router = useRouter();
+const registered = ref(false);
+const formData = ref({
+  username: '',
+  email: '',
+  password: '',
+});
+const inputErrors = ref({
+  username: '',
+  email: '',
+  password: '',
+});
+const inputChecks = ref({
+  username: false,
+  email: false,
+  password: false,
+});
 
 const validateEmail = (email) => {
-  const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
+  const regex = /[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
   return regex.test(String(email).toLowerCase());
 };
 
 const handleSubmit = async () => {
-  if (!username.value) {
-    usernameError.value = 'Informe um nome de usuário';
+  if (!formData.value.username) {
+    inputErrors.value.username = 'Informe um nome de usuário';
+    inputChecks.value.username = false;
   } else {
-    usernameError.value = '';
+    inputErrors.value.username = '';
+    inputChecks.value.username = true;
   }
 
-  if (!email.value || !validateEmail(email.value)) {
-    emailError.value = 'Digite um e-mail válido';
+  if (!formData.value.email || !validateEmail(formData.value.email)) {
+    inputErrors.value.email = 'Digite um e-mail válido';
+    inputChecks.value.email = false;
   } else {
-    emailError.value = '';
+    inputErrors.value.email = '';
+    inputChecks.value.email = true;
   }
 
-  if (!password.value) {
-    passwordError.value = 'A senha é obrigatória';
+  if (!formData.value.password) {
+    inputErrors.value.password = 'A senha é obrigatória';
+    inputChecks.value.password = false;
   } else {
-    passwordError.value = '';
+    inputErrors.value.password = '';
+    inputChecks.value.password = true;
   }
 
-  if (usernameError.value || emailError.value || passwordError.value) {
+  if (inputErrors.value.username || inputErrors.value.email || inputErrors.value.password) {
     return;
   } else {
       try {
         await axios.post('/api/registro', {
-          username: username.value,
-          email: email.value,
-          password: password.value
+          username: formData.value.username,
+          email: formData.value.email,
+          password: formData.value.password
         });
         registered.value = true;
       } catch (error) {
         const errors = error.response.data.error;
         
         if (errors.includes('Email já cadastrado')) {
-            emailError.value = 'Email já cadastrado';
+            inputErrors.value.email = 'Email já cadastrado';
         }
         if (errors.includes('Nome de usuário já cadastrado')) {
-            usernameError.value = 'Nome de usuário já cadastrado';
+            inputErrors.value.username = 'Nome de usuário já cadastrado';
         }
       }
   }
@@ -68,33 +82,12 @@ const handleSubmit = async () => {
       TECH
     </RouterLink>
     <div v-if="!registered" class="w-full">
-      <form @submit.prevent="handleSubmit" class="w-[400px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
+      <form @submit.prevent="handleSubmit" class="w-[450px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
         <h2 class="relative text-[28px] font-[500] mb-[30px] w-fit after:absolute after:content-[''] after:left-0 after:bottom-0 after:w-[50%] after:border-[2px] after:border-primary-color">Criar Conta</h2>
-        <div class="mb-[20px]">
-          <div class="input-box register-input-box">
-            <input id="username" v-model="username" type="text" placeholder="" autocomplete="username" :class="['border-[1px] pl-[12px]', 
-              { 'border-red-500': usernameError, 'border-[#DEE0E4]': !usernameError }]"/>
-            <label for="email" class="left-[12px]">Nome de usuário</label>
-          </div>
-          <div v-if="usernameError" class="text-red-500 mt-[6px] text-[14px]">{{ usernameError }}</div>
-        </div>
-        <div class="mb-[20px]">
-          <div class="input-box register-input-box">
-            <input id="email" v-model="email" type="text" autocomplete="email" placeholder="" :class="['border-[1px]', 
-              { 'border-red-500': emailError, 'border-[#DEE0E4]': !emailError }]"/>
-            <label for="email">E-mail</label>
-          </div>
-          <div v-if="emailError" class="text-red-500 mt-[6px] text-[14px]">{{ emailError }}</div>
-        </div>
-        <div class="mb-[20px]">
-          <div class="input-box register-input-box">
-            <input id="password" v-model="password" type="password" placeholder="" :class="['border-[1px]', 
-              { 'border-red-500': passwordError, 'border-[#DEE0E4]': !passwordError }]"/>
-            <label for="email">Senha</label>
-          </div>
-          <div v-if="passwordError" class="text-red-500 mt-[6px] text-[14px]">{{ passwordError }}</div>
-        </div>
-        <button type="submit" class="p-[10px_20px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Criar</button>
+        <inputField id="username" v-model:title="formData.username" label="Nome de usuário" :error="inputErrors.username" :check="inputChecks.username" type="text" autocomplete="autocomplete" :isRegisterPage="true"/>
+        <inputField id="email" v-model:title="formData.email" label="E-mail" :error="inputErrors.email" :check="inputChecks.email" type="text" autocomplete="autocomplete" :isRegisterPage="true"/>
+        <inputField id="password" v-model:title="formData.password" label="Senha" :error="inputErrors.password" :check="inputChecks.password" type="password" :isRegisterPage="true"/>
+        <button type="submit" class="py-[10px] px-[20px] mt-[10px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Criar</button>
       </form>
       <div class="mt-[40px] text-center">
         Já possui uma conta?
@@ -108,7 +101,7 @@ const handleSubmit = async () => {
         Conta cadastrada com sucesso!
       </p>
       <div class="text-[24px] mt-[20px]">
-        Vá para a página de <RouterLink to="/login" class="underline text-primary-color">Login</RouterLink> para entrar com sua conta.
+        Vá para a página de <RouterLink to="/login" class="underline text-primary-color font-[500]">Login</RouterLink> para entrar com sua conta.
       </div>
     </div>
     <div class="mt-[40px] w-full h-[44px] bg-[linear-gradient(to_bottom,_rgba(0,_0,_0,_.14),_rgba(0,_0,_0,_.03)_3px,_transparent)] after:bg-[linear-gradient(to_right,_#fff,_rgba(255,_255,_255,_0),_#fff)] after:content-[''] after:w-full after:h-[44px] after:block"></div>

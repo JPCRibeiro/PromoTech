@@ -2,13 +2,18 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
+import InputField from './inputField.vue';
 
-const email = ref();
-const emailError = ref('');
-const password = ref('');
-const passwordError = ref('');
 const message = ref('')
 const router = useRouter();
+const formData = ref({
+  email: '',
+  password: '',
+});
+const inputErrors = ref({
+  email: '',
+  password: '',
+});
 
 const validateEmail = (email) => {
   const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
@@ -16,34 +21,35 @@ const validateEmail = (email) => {
 };
 
 const login = async () => {
-  if (!email.value || !validateEmail(email.value)) {
-    emailError.value = 'Digite um e-mail válido';
+  if (!formData.value.email || !validateEmail(formData.value.email)) {
+    inputErrors.value.email = 'Digite um e-mail válido';
   } else {
-    emailError.value = '';
+    inputErrors.value.email = '';
   }
 
-  if (!password.value) {
-    passwordError.value = 'A senha é obrigatória';
+  if (!formData.value.password) {
+    inputErrors.value.password = 'A senha é obrigatória';
   } else {
-    passwordError.value = '';
+    inputErrors.value.password = '';
+    inputChecks.value.password = true;
   }
 
-  if (emailError.value || passwordError.value) {
+  if (inputErrors.value.email || inputErrors.value.password) {
     return;
+  } else {
+    try {
+      const response = await axios.post('/api/login', {
+        email: formData.value.email,
+        password: formData.value.password
+      });
+      localStorage.setItem('token', response.data.token)
+      router.push('/').then(() => {
+        location.reload();
+      });
+    } catch (err) {
+      message.value = err.response.data.error;
+    } 
   }
-
-  try {
-    const response = await axios.post('/api/login', {
-      email: email.value,
-      password: password.value,
-    });
-    localStorage.setItem('token', response.data.token)
-    router.push('/').then(() => {
-      location.reload();
-    });
-  } catch (err) {
-    message.value = err.response.data.error;
-  } 
 };
 </script>
 
@@ -54,27 +60,11 @@ const login = async () => {
       <font-awesome-icon icon="tag" class="ml-[8px]"/>
       TECH
     </RouterLink>
-    <form @submit.prevent="login" class="w-[400px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
+    <form @submit.prevent="login" class="w-[450px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
       <h2 class="relative text-[28px] font-[500] mb-[30px] w-fit after:absolute after:content-[''] after:left-0 after:bottom-0 after:w-[50%] after:border-[2px] after:border-primary-color">Fazer Login</h2>
-      <div class="mb-[20px]">
-        <div class="input-box">
-          <font-awesome-icon icon="user"/>
-          <input id="email" v-model="email" type="text" autocomplete="email" placeholder="" :class="['border-[1px]', 
-            { 'border-red-500': emailError, 'border-[#DEE0E4]': !emailError }]"/>
-          <label for="email">E-mail</label>
-        </div>
-        <div v-if="emailError" class="text-red-500 mt-[6px] text-[14px]">{{ emailError }}</div>
-      </div>
-      <div class="mb-[20px]">
-        <div class="input-box">
-          <font-awesome-icon icon="lock"/>
-          <input id="password" v-model="password" type="password" placeholder="" :class="['border-[1px]', 
-            { 'border-[red]': passwordError, 'border-[#DEE0E4]': !passwordError }]" />
-          <label for="password">Senha</label>
-        </div>
-        <div v-if="passwordError" class="text-[red] mt-[6px] text-[14px]">{{ passwordError }}</div>
-      </div>
-      <button type="submit" class="p-[10px_20px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Entrar</button>
+      <InputField id="email" label="E-mail" v-model:title="formData.email" :error="inputErrors.email" type="text" autocomplete="autocomplete" :isLoginPage="true" icon="user"/>
+      <InputField id="password" label="Senha" v-model:title="formData.password" :error="inputErrors.password" type="password" :isLoginPage="true" icon="lock"/>
+      <button type="submit" class="py-[10px] px-[20px] mt-[10px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Entrar</button>
     </form>
     <div class="mt-[40px] text-center">
       Ainda não possui uma conta?
