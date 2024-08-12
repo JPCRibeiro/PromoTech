@@ -31,7 +31,6 @@ const login = async () => {
     inputErrors.value.password = 'A senha é obrigatória';
   } else {
     inputErrors.value.password = '';
-    inputChecks.value.password = true;
   }
 
   if (inputErrors.value.email || inputErrors.value.password) {

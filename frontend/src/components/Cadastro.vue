@@ -54,7 +54,7 @@ const handleSubmit = async () => {
     return;
   } else {
       try {
-        await axios.post('/api/registro', {
+        await axios.post('http://127.0.0.1:5000/api/registro', {
           username: formData.value.username,
           email: formData.value.email,
           password: formData.value.password
