@@ -92,7 +92,7 @@ const handleSubmit = async () => {
       <div class="mt-[40px] text-center">
         Já possui uma conta?
         <RouterLink to="/login" class="text-primary-color hover:underline font-[500]">
-          Fazer login
+          Faça login
         </RouterLink>
       </div>
     </div>

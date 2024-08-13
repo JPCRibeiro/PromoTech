@@ -1,19 +1,8 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
-const isScrolled = ref(false);
 const props = defineProps(['user'])
-const route = useRoute();
 const router = useRouter();
-
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 0;
-};
-
-const isActiveLink = (routePath) => {
-  return route.path === routePath;
-};
 
 const handleLogout = () => {
   localStorage.removeItem('token')
@@ -21,21 +10,10 @@ const handleLogout = () => {
     location.reload();
   });
 };
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 </script>
 
 <template>
-  <header :class="['w-full h-[70px] fixed top-0 z-[999] transition-colors duration-200 max-media768:bg-primary-color max-media768:shadow-[rgba(0,_0,_0,_0.16)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.12)_0px_2px_10px_0px] max-media768:bg-none',
-    { 'bg-primary-color': (!isActiveLink('/') || (isActiveLink('/') && isScrolled)),
-      'bg-[linear-gradient(180deg,_rgba(0,_0,_0,_0.7)_-40%,_transparent)]': !isScrolled && isActiveLink('/'),
-      'shadow-[rgba(0,_0,_0,_0.16)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.12)_0px_2px_10px_0px]': (!isActiveLink('/') || (isActiveLink('/') && isScrolled))}]">
+  <header class='w-full h-[70px] fixed top-0 z-[999] shadow-[rgba(0,_0,_0,_0.16)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.12)_0px_2px_10px_0px] bg-primary-color'>
     <div class="max-w-[1240px] w-full h-full mx-auto flex items-center justify-between px-[20px]">
       <span class="invisible" aria-hidden="true"></span>
       <RouterLink to="/" class="text-[28px] font-bold text-white italic flex items-center select-none">

@@ -68,7 +68,7 @@ const login = async () => {
     <div class="mt-[40px] text-center">
       Ainda não possui uma conta?
       <RouterLink to="/cadastro" class="text-primary-color hover:underline font-[500]">
-        Criar Agora
+        Crie Agora
       </RouterLink>
     </div>
     <div class="mt-[40px] w-full h-[44px] bg-[linear-gradient(to_bottom,_rgba(0,_0,_0,_.14),_rgba(0,_0,_0,_.03)_3px,_transparent)] after:bg-[linear-gradient(to_right,_#fff,_rgba(255,_255,_255,_0),_#fff)] after:content-[''] after:w-full after:h-[44px] after:block"></div>
