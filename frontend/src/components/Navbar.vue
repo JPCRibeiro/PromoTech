@@ -37,6 +37,9 @@ const handleLogout = () => {
           </div>
         </div>
       </div>
+      <RouterLink to="/carrinho">
+        <font-awesome-icon icon="cart-shopping" class="text-[24px] text-white"/>
+      </RouterLink>
       <RouterLink to="/login" v-if="!user" class="bg-white rounded-[999px] py-[6px] px-[14px] text-primary-color font-[600] hover:opacity-[0.6] transition duration-200">Login</RouterLink>
     </div>
   </header>

@@ -4,9 +4,9 @@ import App from "./App.vue";
 import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faChevronLeft, faTag, faChevronRight, faUser, faLock, faUserCircle, faUserAstronaut, faCreditCard, faCheckCircle, faTruck, faStar, faCheck, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faTag, faChevronRight, faUser, faLock, faUserCircle, faUserAstronaut, faCreditCard, faCircleCheck, faTruckFast, faStar, faCheck, faExclamationTriangle, faCartShopping, faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faChevronLeft, faTag, faChevronRight, faUser, faLock, faUserCircle, faUserAstronaut, faCreditCard, faCheckCircle, faTruck, faStar, faCheck, faExclamationTriangle, faExclamation)
+library.add(faChevronLeft, faTag, faChevronRight, faUser, faLock, faUserCircle, faUserAstronaut, faCreditCard, faCircleCheck, faTruckFast, faStar, faCheck, faExclamationTriangle, faCartShopping, faCircleChevronLeft, faCircleChevronRight )
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon)

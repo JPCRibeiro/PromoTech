@@ -6,11 +6,11 @@
         <span class="text-[18px] font-[600]">Até 12x no cartão de crédito</span>
       </div>
       <div class="flex gap-[12px] flex-col items-center text-center w-[300px]">
-        <font-awesome-icon icon="check-circle" class="text-[32px]"/>
+        <font-awesome-icon icon="circle-check" class="text-[32px]"/>
         <span class="text-[18px] font-[600]">Loja 100% segura e confiável</span>
       </div>
       <div class="flex gap-[12px] flex-col items-center text-center w-[300px]">
-        <font-awesome-icon icon="truck" class="text-[32px]"/>
+        <font-awesome-icon icon="truck-fast" class="text-[32px]"/>
         <span class="text-[18px] font-[600]">Entregamos para todo Brasil</span>
       </div>
       <div class="flex gap-[12px] flex-col items-center text-center w-[300px]">

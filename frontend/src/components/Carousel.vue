@@ -40,10 +40,15 @@ const handlePrevClick = () => {
 };
 
 const handleNextClick = () => {
+  if (!carouselRef.value || !sliderRef.value) {
+    return;
+  }
+  
   if (direction.value === 1) {
     sliderRef.value.prepend(sliderRef.value.lastElementChild);
     setDirection(-1);
   }
+
   carouselRef.value.style.justifyContent = 'flex-start';
   sliderRef.value.style.transform = `translate(${-width.value}px)`;
 };
@@ -65,6 +70,10 @@ const handleTransitionEnd = (event) => {
 };
 
 const handleResize = () => {
+  if (!sliderRef.value) {
+    return;
+  }
+
   sliderRef.value.style.transition = 'none';
   width.value = window.innerWidth;
 
@@ -100,25 +109,18 @@ onMounted(() => {
 <template>
   <div class="mt-[70px] w-full relative z-0">
     <div class="h-[400px] w-full flex justify-start overflow-hidden relative" ref="carouselRef">
-      
-      <div class="visible z-10 max-h-[250px] w-[80px] absolute top-0 h-full left-0">
-        <button @click="handlePrevClick(); setIsUserInteracting(true)" class="absolute inset-0 outline-none rounded-[5px] bg-none border-none cursor-pointer">
-          <i class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-[url('../../assets/slide.png')] bg-[length:68px_52px] w-[34px] h-[52px] outline-none"></i>
-        </button>
-      </div>
-
-      <ol ref="sliderRef" class="transition-all duration-[250ms] ease-out flex flex-shrink-0 h-full relative" @transitionend="handleTransitionEnd">
+      <div class="w-full h-full absolute top-0 left-0 bg-[linear-gradient(to_right,rgb(0_0_0/40%),rgba(0,0,0,0),rgb(0_0_0/40%))]"></div>
+      <ol ref="sliderRef" class="transition-all duration-[250ms] ease-out flex flex-shrink-0 h-full relative z-[-1]" @transitionend="handleTransitionEnd">
         <li v-for="(image, index) in images" :key="index" class="relative h-full flex">
           <img :width="width" :src="image" class="object-cover object-center"/>
         </li>
       </ol>
-
-      <div class="visible z-10 max-h-[250px] w-[80px] absolute top-0 h-full right-0">
-        <button @click="handleNextClick(); setIsUserInteracting(true)" class="absolute inset-0 outline-none rounded-[5px] bg-none border-none cursor-pointer">
-          <i class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-[url('../../assets/slide.png')] bg-[length:68px_52px] w-[34px] h-[52px] outline-none"></i>
-        </button>
-      </div>
-
+      <button class="absolute top-[50%] left-[3%] transform -translate-x-[3%] -translate-y-[50%] rounded-[100%] w-[32px] h-[32px] bg-primary-color flex items-center justify-center">
+        <font-awesome-icon @click="handlePrevClick(); setIsUserInteracting(true)" icon="circle-chevron-left" class="text-white hover:text-[#C2D2E6] transition-[200ms] text-[40px] rounded-[100%] shadow-[rgba(0,_0,_0,_0.16)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.12)_0px_2px_10px_0px]"/>
+      </button>
+      <button class="absolute top-[50%] right-[3%] transform -translate-x-[3%] -translate-y-[50%] rounded-[100%] w-[32px] h-[32px] bg-primary-color flex items-center justify-center">
+        <font-awesome-icon @click="handleNextClick(); setIsUserInteracting(true)" icon="circle-chevron-right" class="text-white hover:text-[#C2D2E6] transition-[200ms] text-[40px] rounded-[100%] shadow-[rgba(0,_0,_0,_0.16)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.12)_0px_2px_10px_0px]"/>
+      </button>
     </div>
   </div>
 </template>
