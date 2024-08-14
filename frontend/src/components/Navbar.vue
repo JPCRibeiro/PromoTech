@@ -21,26 +21,28 @@ const handleLogout = () => {
         <font-awesome-icon icon="tag" class="ml-[8px]"/>
         TECH
       </RouterLink>
-      <div v-if="user" class="relative group">
-        <div class="flex items-center gap-[10px] cursor-default">
-          <span class="text-white group-hover:opacity-[0.6] duration-200">{{ user.username }}</span>
-          <font-awesome-icon icon="user-astronaut" class="text-[30px] text-white group-hover:opacity-[0.6] duration-200"/>
-        </div>
-        <div class="absolute top-0 right-0 transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-200 ease-in-out group-hover:transform z-[50] min-w-[200px] transform">
-          <div class="relative top-[24px] p-[12px] bg-white rounded-xl shadow-xl w-full">
-            <div class="w-10 h-10 bg-white transform rotate-45 absolute top-0 right-[25%] translate-x-[25%] z-[0] translate-y-[100px] transition-transform group-hover:translate-y-[0] duration-300 ease-in-out rounded-sm"></div>
-            <div class="relative z-[100] flex flex-col">
-              <RouterLink to="/" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Meus pedidos</RouterLink>
-              <RouterLink to="/" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Meus favoritos</RouterLink>
-              <RouterLink to="/" @click="handleLogout" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Sair</RouterLink>
+      <div class="flex items-center gap-[14px]">
+        <div v-if="user" class="relative group">
+          <div class="flex items-center gap-[10px] cursor-default">
+            <span class="text-white group-hover:opacity-[0.6] duration-200">{{ user.username }}</span>
+            <font-awesome-icon icon="user-astronaut" class="text-[30px] text-white group-hover:opacity-[0.6] duration-200"/>
+          </div>
+          <div class="absolute top-0 right-0 transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-200 ease-in-out group-hover:transform z-[50] min-w-[200px] transform">
+            <div class="relative top-[24px] p-[12px] bg-white rounded-xl shadow-xl w-full">
+              <div class="w-10 h-10 bg-white transform rotate-45 absolute top-0 right-[25%] translate-x-[25%] z-[0] translate-y-[100px] transition-transform group-hover:translate-y-[0] duration-300 ease-in-out rounded-sm"></div>
+              <div class="relative z-[100] flex flex-col">
+                <RouterLink to="/" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Meus pedidos</RouterLink>
+                <RouterLink to="/" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Meus favoritos</RouterLink>
+                <RouterLink to="/" @click="handleLogout" class="block px-[16px] py-[8px] rounded-lg hover:bg-[#EFF4FF] transition duration-200 text-gray-800 font-semibold hover:text-[#4062e5] select-none">Sair</RouterLink>
+              </div>
             </div>
           </div>
         </div>
+        <RouterLink to="/carrinho" class="flex">
+          <font-awesome-icon icon="cart-shopping" class="text-[22px] text-white"/>
+        </RouterLink>
+        <RouterLink to="/login" v-if="!user" class="bg-white rounded-[999px] py-[6px] px-[14px] text-primary-color font-[600] hover:opacity-[0.6] transition duration-200">Login</RouterLink>
       </div>
-      <RouterLink to="/carrinho">
-        <font-awesome-icon icon="cart-shopping" class="text-[24px] text-white"/>
-      </RouterLink>
-      <RouterLink to="/login" v-if="!user" class="bg-white rounded-[999px] py-[6px] px-[14px] text-primary-color font-[600] hover:opacity-[0.6] transition duration-200">Login</RouterLink>
     </div>
   </header>
 </template>
