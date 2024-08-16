@@ -8,6 +8,7 @@ export default {
       'media600': '600px',
       'media768': '768px',
       'media900': '900px',
+      'media1024': '1024px',
       'media1200': '1200px',
     },
     extend: {

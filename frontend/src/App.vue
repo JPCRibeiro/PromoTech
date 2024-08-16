@@ -2,12 +2,14 @@
 import Navbar from '@/components/Navbar.vue'
 import Footer from './components/Footer.vue';
 import { RouterView, useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, provide, ref } from 'vue';
 import axios from 'axios';
 
 const route = useRoute();
 const hideLayout = computed(() => route.meta.hideLayout);
 const user = ref(null)
+
+provide('user', user);
 
 const userLogged = async () => {
   try {
@@ -32,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Navbar v-if="!hideLayout" :user="user"/>
+    <Navbar v-if="!hideLayout"/>
     <RouterView/>
-    <Footer v-if="!hideLayout" />
+    <Footer v-if="!hideLayout"/>
 </template>

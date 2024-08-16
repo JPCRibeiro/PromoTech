@@ -1,5 +1,5 @@
 <script setup>
-import Cadastro from '@/components/Cadastro.vue';
+import Cadastro from '@/components/Register.vue';
 import { onMounted } from 'vue';
 
 const updatePageTitle = () => {

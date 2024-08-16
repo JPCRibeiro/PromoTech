@@ -49,7 +49,7 @@ const props = defineProps({
         <font-awesome-icon v-if="check" icon="check" class="text-[#21bd21] absolute right-[12px]"/>
       </div>
       <div v-if="error" class="text-[red] mt-[6px] text-[14px] font-[600]">
-        <font-awesome-icon icon="exclamation-triangle" class="text-[red] mr-[5px]"/>
+        <font-awesome-icon icon="exclamation" class="text-[red] mr-[5px] text-[16px]"/>
         {{ error }}
       </div>
     </div>
@@ -60,6 +60,7 @@ const props = defineProps({
         <label :for="id" :class="error ? 'input-error' : ''">{{ label }}</label>
       </div>
       <div v-if="error" class="text-[red] mt-[6px] text-[14px] font-[600]">
+        <font-awesome-icon icon="exclamation" class="text-[red] mr-[5px] text-[16px]"/>
         {{ error }}
       </div>
     </div>

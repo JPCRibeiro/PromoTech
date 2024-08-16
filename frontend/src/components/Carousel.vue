@@ -2,10 +2,11 @@
 import { onBeforeMount, onMounted, ref } from 'vue';
 import img1 from '../assets/images/background1.jpg'
 import img2 from '../assets/images/background2.png'
-import img3 from '../assets/images/background3.jpeg'
+import img3 from '../assets/images/background3.jpg'
 import img4 from '../assets/images/background4.png'
 import img5 from '../assets/images/background5.jpg'
 import img6 from '../assets/images/background6.jpg'
+import img7 from '../assets/images/background7.jpg'
 
 const sliderRef = ref(null);
 const carouselRef = ref(null);
@@ -19,7 +20,8 @@ const images = [
   img3,
   img4,
   img5,
-  img6
+  img6,
+  img7
 ];
 
 const setDirection = (dir) => {

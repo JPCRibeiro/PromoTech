@@ -16,6 +16,6 @@ onMounted(() => {
     <font-awesome-icon :icon="faFaceFrown" class="text-[60px] mb-4"/>
     <h1 class="text-6xl font-bold mb-4">Página Não Encontrada</h1>
     <p class="text-xl mb-5">Pesquise novamente ou volte para a página inicial</p>
-    <RouterLink to="/" class="text-white bg-primary-color hover:bg-[#012957] rounded-[999px] px-6 py-3 mt-4">Voltar</RouterLink>
+    <RouterLink to="/" class="text-white bg-primary-color hover:bg-[#012957] rounded-[999px] px-6 py-3 mt-4 font-[600] transition-[200ms]">Voltar</RouterLink>
   </section>
 </template>
