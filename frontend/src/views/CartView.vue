@@ -1,23 +1,26 @@
 <script setup>
 import { CartService } from '@/services/CartService';
+import { OrderService } from '@/services/OrderService';
 import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const cartService = new CartService()
-
+const cartService = new CartService();
+const orderService = new OrderService();
+const router = useRouter();
 const cart = computed(() => cartService.getCart());
 
 const handleRemove = (cartItem) => {
-  cartService.removeFromCart(cartItem.food.id);
+  cartService.removeFromCart(cartItem.product.id);
 };
 
 const handleDecrease = (cartItem) => {
   if (cartItem.quantity > 1) {
-    cartService.changeQuantity(cartItem.food.id, cartItem.quantity - 1);
+    cartService.changeQuantity(cartItem.product.id, cartItem.quantity - 1);
   }
 };
 
 const handleIncrease = (cartItem) => {
-  cartService.changeQuantity(cartItem.food.id, cartItem.quantity + 1);
+  cartService.changeQuantity(cartItem.product.id, cartItem.quantity + 1);
   if (cartItem.quantity === 5) {
     return
   }
@@ -28,6 +31,16 @@ const precoOriginal = (value) => value / 0.9;
 const formatoDinheiro = (value) => {
   value = parseFloat(value);
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).trim();
+};
+
+const fecharPedido = () => {
+  const cartItems = cartService.getCart();
+  if (cartItems.items.length) {
+    orderService.saveOrder(cartItems); // Passar o carrinho inteiro sem limpar o pedido anterior
+    router.push('/checkout'); 
+  } else {
+    console.error('O carrinho está vazio!');
+  }
 };
 
 const updatePageTitle = () => {
@@ -46,17 +59,17 @@ onMounted(() => {
         <div class="pb-[16px]">
           <h2 class="text-[28px] font-[700] flex justify-between leading-[24px]">Carrinho</h2>
         </div>
-        <div v-for="item in cart.items" :key="item.food.id" class="grid grid-cols-[150px_2fr_1fr] gap-[16px] py-[16px] border-t-[1px] border-t-[#DDD]">
-          <RouterLink :to="`/produto/${item.food.slug}`" class="flex">
-            <img :src="item.food.imagem" :alt="item.food.produto" class="object-contain"/>
+        <div v-for="item in cart.items" :key="item.product.id" class="grid grid-cols-[150px_2fr_1fr] gap-[16px] py-[16px] border-t-[1px] border-t-[#DDD]">
+          <RouterLink :to="`/produto/${item.product.slug}`" class="flex">
+            <img :src="item.product.imagem" :alt="item.product.produto" class="object-contain"/>
           </RouterLink>
           <div class="flex flex-col gap-[8px]">
-            <RouterLink :to="`/produto/${item.food.slug}`" class="flex h-fit w-fit hover:underline">
-              <h2 class="font-bold">{{ item.food.produto }}</h2>
+            <RouterLink :to="`/produto/${item.product.slug}`" class="flex h-fit w-fit hover:underline">
+              <h2 class="font-bold">{{ item.product.produto }}</h2>
             </RouterLink>
             <div class="text-[14px] text-[#565959]">
-              <p>Com desconto no PIX: <span class="font-bold">{{ formatoDinheiro(item.food.valor) }}</span></p>
-              <p>Parcelado em até 12x sem juros: <span class="font-bold">{{ formatoDinheiro(precoOriginal(item.food.valor)) }}</span></p>
+              <p>Com desconto no PIX: <span class="font-bold">{{ formatoDinheiro(item.product.valor) }}</span></p>
+              <p>Parcelado em até 12x sem juros: <span class="font-bold">{{ formatoDinheiro(precoOriginal(item.product.valor)) }}</span></p>
             </div>
           </div>
           <div class="flex h-fit justify-between gap-[8px]">
@@ -78,7 +91,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="flex flex-col items-end">
-              <p class="font-bold">{{ formatoDinheiro((item.food.valor * item.quantity)) }}</p> 
+              <p class="font-bold">{{ formatoDinheiro((item.product.valor * item.quantity)) }}</p> 
             </div> 
           </div>   
         </div>
@@ -88,14 +101,18 @@ onMounted(() => {
           <h2 class="text-[28px] font-[700] leading-[24px]">Subtotal</h2>
         </div>
         <div class="flex flex-col">
-          <p class="flex justify-between border-y-[1px] border-y-[#DDD] py-[14px]">Valor dos Produtos: <span class="font-bold">{{ formatoDinheiro(cart.totalPrice) }}</span></p>
-          <p class="flex justify-between py-[14px]">Frete: <span class="font-bold">Grátis</span></p>
-          <button class="bg-primary-color text-white w-full p-[7px] rounded-[99px] font-[600]">Fechar Pedido</button>
+          <p class="flex justify-between border-t-[1px] border-t-[#DDD] py-[14px]">
+            Valor total: 
+            <span class="font-bold">{{ formatoDinheiro(cart.totalPrice) }}</span>
+          </p>
+          <button @click="fecharPedido" class="bg-primary-color text-white w-full p-[7px] rounded-[99px] font-[600] flex justify-center">Continuar</button>
         </div>
       </div>
     </div>
     <div v-else class="mt-[100px] flex flex-col justify-center items-center">
-      <p class="text-[28px] font-bold text-center">Seu carrinho está vazio.</p>
+      <p class="text-[28px] font-bold text-center">
+        Seu carrinho está vazio.
+      </p>
       <RouterLink to="/" class="text-white bg-primary-color hover:bg-[#012957] rounded-[999px] px-6 py-3 mt-4 font-[600] transition-[200ms]">
         Continuar comprando
       </RouterLink>

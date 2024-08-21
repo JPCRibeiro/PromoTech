@@ -1,8 +1,8 @@
-import { CartItem } from '@/models/CartItem';
+import { Product } from '@/models/CartItem';
 import { Cart } from '@/models/Cart';
 import { ref } from 'vue';
 
-const cart = ref(new Cart());
+const cart = ref(null);
 
 export class CartService {
   constructor() {
@@ -13,33 +13,33 @@ export class CartService {
     return cart.value;
   }
 
-  addToCart(food) {
-    let cartItem = cart.value.items.find(item => item.food.id === food.id);
+  addToCart(product) {
+    let cartItem = cart.value.items.find(item => item.product.id === product.id);
 
     if (cartItem)
       return;
 
-    cart.value.items.push( new CartItem(food));
+    cart.value.items.push( new Product(product));
     this.saveCart();
   }
 
-  removeFromCart(foodId) {
-    cart.value.items = cart.value.items.filter(item => item.food.id !== foodId);
+  removeFromCart(productId) {
+    cart.value.items = cart.value.items.filter(item => item.product.id !== productId);
     this.saveCart();
   }
 
-  changeQuantity(foodId, quantity) {
-    let cartItem = cart.value.items.find(item => item.food.id === foodId);
+  changeQuantity(productId, quantity) {
+    let cartItem = cart.value.items.find(item => item.product.id === productId);
 
     if(!cartItem) return;
-    
+
     cartItem.quantity = quantity;
-    cartItem.price = quantity * cartItem.food.valor;
+    cartItem.price = quantity * cartItem.product.valor;
     this.saveCart();
   }
 
   saveCart() {
-    cart.value.totalPrice = cart.value.items.reduce((prev, current) => prev + (current.quantity * current.food.valor), 0);
+    cart.value.totalPrice = cart.value.items.reduce((prev, current) => prev + (current.quantity * current.product.valor), 0);
     cart.value.totalCount = cart.value.items.reduce((prev, current) => prev + current.quantity, 0);
     localStorage.setItem('carrinho', JSON.stringify(cart.value));
   }

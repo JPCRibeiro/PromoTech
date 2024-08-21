@@ -1,7 +1,7 @@
-export class CartItem {
-  constructor(food) {
-    this.food = food;
+export class Product {
+  constructor(product) {
+    this.product = product;
     this.quantity = 1;
-    this.price = this.food.valor;
+    this.price = this.product.valor;
   }
 }

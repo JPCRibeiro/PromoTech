@@ -10,6 +10,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  isCheckoutPage: {
+    type: Boolean,
+    default: false
+  },
   id: {
     type: String,
   },
@@ -35,6 +39,13 @@ const props = defineProps({
   },
   icon: {
     type: String
+  },
+  focusout: {
+    type: Function
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
@@ -58,6 +69,18 @@ const props = defineProps({
         <font-awesome-icon :icon="icon"/>
         <input :id="id" v-model="title" :type="type" placeholder="" :autocomplete="autocomplete" :class="['border-[1px]', error ? 'border-[red] focus:border-[red]' : 'border-[#DEE0E4] focus:border-primary-color']"/>
         <label :for="id" :class="error ? 'input-error' : ''">{{ label }}</label>
+      </div>
+      <div v-if="error" class="text-[red] mt-[6px] text-[14px] font-[600]">
+        <font-awesome-icon icon="exclamation" class="text-[red] mr-[5px] text-[16px]"/>
+        {{ error }}
+      </div>
+    </div>
+    <div v-if="isCheckoutPage" class="mb-[20px] last:mb-0">
+      <div class="flex items-center relative">
+        <div class="input-box register-input-box w-full">
+          <input @focusout="focusout" :id="id" v-model="title" :type="type" :disabled="disabled" placeholder="" :autocomplete="autocomplete" :class="['border-[1px] disabled:cursor-not-allowed', error ? 'border-[red] focus:border-[red]' : 'border-[#DEE0E4] focus:border-primary-color', check ? 'check-pad' : 'input-pad']"/>
+          <label :for="id" :class="error ? 'input-error' : ''">{{ label }}</label>
+        </div>
       </div>
       <div v-if="error" class="text-[red] mt-[6px] text-[14px] font-[600]">
         <font-awesome-icon icon="exclamation" class="text-[red] mr-[5px] text-[16px]"/>

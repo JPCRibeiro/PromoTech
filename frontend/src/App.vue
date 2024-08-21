@@ -7,21 +7,24 @@ import axios from 'axios';
 
 const route = useRoute();
 const hideLayout = computed(() => route.meta.hideLayout);
-const user = ref(null)
+const user = ref(JSON.parse(localStorage.getItem('user')) || null);
 
 provide('user', user);
 
 const userLogged = async () => {
   try {
-    const response = await axios.get('/api/user', {
+    const response = await axios.get('http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
-    })
-    user.value = response.data
+    });
+    user.value = response.data;
+    localStorage.setItem('user', JSON.stringify(user.value));
   } catch (error) {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      user.value = null;
     }
   }
 }
@@ -29,6 +32,9 @@ const userLogged = async () => {
 onMounted(() => {
   if (localStorage.getItem('token')) {
     userLogged();
+  } else {
+    localStorage.removeItem('user');
+    user.value = null;
   }
 });
 </script>
