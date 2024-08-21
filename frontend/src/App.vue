@@ -13,7 +13,7 @@ provide('user', user);
 
 const userLogged = async () => {
   try {
-    const response = await axios.get('http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user', {
+    const response = await axios.get('/api/user', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

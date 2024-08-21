@@ -37,7 +37,7 @@ const login = async () => {
     return;
   } else {
     try {
-      const response = await axios.post('http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/login', {
+      const response = await axios.post('/api/login', {
         email: formData.value.email,
         password: formData.value.password
       });

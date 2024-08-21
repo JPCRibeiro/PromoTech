@@ -20,7 +20,3 @@
     </div>
   </section>
 </template>
-
-<!--
-#0b468b3b
--->
