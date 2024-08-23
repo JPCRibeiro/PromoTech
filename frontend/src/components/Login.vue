@@ -37,7 +37,7 @@ const login = async () => {
     return;
   } else {
     try {
-      const response = await axios.post('/api/login', {
+      const response = await axios.post('http://127.0.0.1:5000/api/login', {
         email: formData.value.email,
         password: formData.value.password
       });
@@ -61,8 +61,8 @@ const login = async () => {
     </RouterLink>
     <form @submit.prevent="login" class="w-[450px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
       <h2 class="relative text-[28px] font-[500] mb-[30px] w-fit after:absolute after:content-[''] after:left-0 after:bottom-0 after:w-[50%] after:border-[2px] after:border-primary-color">Fazer Login</h2>
-      <InputField id="email" label="E-mail" v-model:title="formData.email" :error="inputErrors.email" type="text" autocomplete="autocomplete" :isLoginPage="true" icon="user"/>
-      <InputField id="password" label="Senha" v-model:title="formData.password" :error="inputErrors.password" type="password" :isLoginPage="true" icon="lock"/>
+      <InputField id="email" label="E-mail" v-model:title="formData.email" :error="inputErrors.email" type="text" autocomplete="email" :isLoginPage="true" icon="user"/>
+      <InputField id="password" label="Senha" v-model:title="formData.password" :error="inputErrors.password" type="password" autocomplete="current-password" :isLoginPage="true" icon="lock"/>
       <button type="submit" class="py-[10px] px-[20px] mt-[10px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Entrar</button>
     </form>
     <div class="mt-[40px] text-center">

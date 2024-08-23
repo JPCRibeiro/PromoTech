@@ -54,7 +54,7 @@ const handleSubmit = async () => {
     return;
   } else {
       try {
-        await axios.post('/api/registro', {
+        await axios.post('http://127.0.0.1:5000/api/registro', {
           username: formData.value.username,
           email: formData.value.email,
           password: formData.value.password
@@ -84,9 +84,9 @@ const handleSubmit = async () => {
     <div v-if="!registered" class="w-full">
       <form @submit.prevent="handleSubmit" class="w-[450px] max-media480:w-full m-auto border-[1px] p-[20px] shadow-lg rounded-lg border-t-4 border-t-primary-color">
         <h2 class="relative text-[28px] font-[500] mb-[30px] w-fit after:absolute after:content-[''] after:left-0 after:bottom-0 after:w-[50%] after:border-[2px] after:border-primary-color">Criar Conta</h2>
-        <inputField id="username" v-model:title="formData.username" label="Nome de usuário" :error="inputErrors.username" :check="inputChecks.username" type="text" autocomplete="autocomplete" :isRegisterPage="true"/>
-        <inputField id="email" v-model:title="formData.email" label="E-mail" :error="inputErrors.email" :check="inputChecks.email" type="text" autocomplete="autocomplete" :isRegisterPage="true"/>
-        <inputField id="password" v-model:title="formData.password" label="Senha" :error="inputErrors.password" :check="inputChecks.password" type="password" :isRegisterPage="true"/>
+        <inputField id="username" v-model:title="formData.username" label="Nome de usuário" :error="inputErrors.username" :check="inputChecks.username" type="text" autocomplete="username" :isRegisterPage="true"/>
+        <inputField id="email" v-model:title="formData.email" label="E-mail" :error="inputErrors.email" :check="inputChecks.email" type="text" autocomplete="email" :isRegisterPage="true"/>
+        <inputField id="password" v-model:title="formData.password" label="Senha" :error="inputErrors.password" :check="inputChecks.password" type="password" autocomplete="current-password" :isRegisterPage="true"/>
         <button type="submit" class="py-[10px] px-[20px] mt-[10px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Criar</button>
       </form>
       <div class="mt-[40px] text-center">

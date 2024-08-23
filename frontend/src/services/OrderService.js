@@ -32,7 +32,7 @@ export class OrderService {
     localStorage.setItem('order', JSON.stringify(order.value));
   }
 
-  updateProductQuantity(index, newQuantity) {
+  changeQuantity(index, newQuantity) {
     if (order.value.product) {
       order.value.quantity = newQuantity;
       order.value.totalPrice = order.value.product.valor * newQuantity;

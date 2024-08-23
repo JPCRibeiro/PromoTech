@@ -10,7 +10,7 @@ const currentPage = ref(localStorage.getItem("currentPage") ? parseInt(localStor
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/api/produtos");
+    const response = await axios.get("http://127.0.0.1:5000/api/produtos");
     produtos.value = response.data;
   } catch (error) {
     console.error("Erro ao buscar os produtos:", error);
@@ -62,7 +62,7 @@ const updatePage = (page) => {
                 <span class="relative text-[#565959] after:border-t-[1px] after:border-t-[#565959] after:absolute after:content-[''] after:top-[47%] after:right-0 after:left-0">{{ formatoDinheiro(precoOriginal(produto.valor)) }}</span>
               </div>
               <p class="text-[14px] text-[#565959]">
-                À vista no Pix e boleto ou em até 12x de
+                À vista no Pix ou em até 12x de
                 {{ formatoDinheiro(precoParcelado(produto.valor)) }} sem juros
               </p>
             </div>

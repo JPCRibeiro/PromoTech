@@ -7,6 +7,7 @@ import LoginView from '@/views/LoginView.vue';
 import CadastroView from '@/views/RegisterView.vue';
 import CartView from '@/views/CartView.vue';
 import CheckoutView from '@/views/CheckoutView.vue';
+import OrdersView from '@/views/OrdersView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,11 @@ const router = createRouter({
       path: '/checkout',
       name: 'checkout',
       component: CheckoutView
+    },
+    {
+      path: '/compras',
+      name: 'compras',
+      component: OrdersView
     },
     {
       path: '/:catchAll(.*)*',

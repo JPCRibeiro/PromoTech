@@ -22,11 +22,11 @@ const updatePageTitle = (produto) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/produtos/${slug}`);
+    const response = await axios.get(`http://127.0.0.1:5000/api/produtos/${slug}`);
     if (response.data) {
       produto.value = response.data;
       updatePageTitle(produto.value);
-      const fichasResponse = await axios.get(`/api/fichas/${produto.value.id}`);
+      const fichasResponse = await axios.get(`http://127.0.0.1:5000/api/fichas/${produto.value.id}`);
       if (fichasResponse.data) {
         fichas.value = fichasResponse.data;
       }
@@ -51,7 +51,6 @@ const precoParcelado = (value) => precoOriginal(value) / 12;
 
 const comprarProduto = () => {
   orderService.saveOrder(produto.value, true);
-  console.log(produto.value)
   router.push('/checkout'); 
 };
 
@@ -75,7 +74,7 @@ const adicionarAoCarrinho = () => {
         <div class="flex flex-col">
           <h2 class="text-[26px]">{{ produto.produto }}</h2>
           <p class="text-[36px] font-[600] my-[10px]">{{ formatoDinheiro(produto.valor) }}</p>
-          <p class="text-[16px] text-[#565959]">À vista no Pix e boleto (10% off)</p>
+          <p class="text-[16px] text-[#565959]">À vista no Pix (10% off)</p>
           <p class="text-[18px] text-[#565959]">ou em até 12x de {{ formatoDinheiro(precoParcelado(produto.valor)) }} sem juros</p>
           <div class="flex flex-col w-full max-w-[400px]">
             <button @click="comprarProduto" class="bg-primary-color text-white hover:bg-[#093e7c] p-[10px] px-[20px] mt-[15px] rounded-[9999px] text-[20px] font-[600] transition-colors duration-200">
