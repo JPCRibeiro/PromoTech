@@ -36,7 +36,7 @@ const formatoDinheiro = (value) => {
 const fecharPedido = () => {
   const cartItems = cartService.getCart();
   if (cartItems.items.length) {
-    orderService.saveOrder(cartItems); // Passar o carrinho inteiro sem limpar o pedido anterior
+    orderService.saveOrder(cartItems); 
     router.push('/checkout'); 
   } else {
     console.error('O carrinho está vazio!');

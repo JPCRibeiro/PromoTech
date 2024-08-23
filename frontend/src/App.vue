@@ -13,7 +13,7 @@ provide('user', user);
 
 const userLogged = async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:5000/api/user', {
+    const response = await axios.get('/api/user', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

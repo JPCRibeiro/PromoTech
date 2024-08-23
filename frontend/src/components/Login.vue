@@ -37,7 +37,7 @@ const login = async () => {
     return;
   } else {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/login', {
+      const response = await axios.post('/api/login', {
         email: formData.value.email,
         password: formData.value.password
       });

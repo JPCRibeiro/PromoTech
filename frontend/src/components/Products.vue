@@ -10,7 +10,7 @@ const currentPage = ref(localStorage.getItem("currentPage") ? parseInt(localStor
 
 onMounted(async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:5000/api/produtos");
+    const response = await axios.get("/api/produtos");
     produtos.value = response.data;
   } catch (error) {
     console.error("Erro ao buscar os produtos:", error);

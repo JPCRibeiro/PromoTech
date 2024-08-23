@@ -22,11 +22,11 @@ const updatePageTitle = (produto) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/api/produtos/${slug}`);
+    const response = await axios.get(`/api/produtos/${slug}`);
     if (response.data) {
       produto.value = response.data;
       updatePageTitle(produto.value);
-      const fichasResponse = await axios.get(`http://127.0.0.1:5000/api/fichas/${produto.value.id}`);
+      const fichasResponse = await axios.get(`/api/fichas/${produto.value.id}`);
       if (fichasResponse.data) {
         fichas.value = fichasResponse.data;
       }
