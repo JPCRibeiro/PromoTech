@@ -224,7 +224,6 @@ def get_user(cursor):
 def post_order(cursor):
   email = request.json['email']
   produtos = request.json['produtos']
-  print(produtos)
 
   cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
   user = cursor.fetchone()
