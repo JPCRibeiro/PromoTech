@@ -13,6 +13,7 @@ const formData = ref({
 const inputErrors = ref({
   email: '',
   password: '',
+  loginFail: '',
 });
 
 const validateEmail = (email) => {
@@ -47,6 +48,9 @@ const login = async () => {
       });
     } catch (err) {
       message.value = err.response.data.error;
+      if (err.response.status === 401) {
+        inputErrors.value.loginFail = 'Usuário não encontrado'
+      }
     } 
   }
 };
@@ -63,6 +67,10 @@ const login = async () => {
       <h2 class="relative text-[28px] font-[500] mb-[30px] w-fit after:absolute after:content-[''] after:left-0 after:bottom-0 after:w-[50%] after:border-[2px] after:border-primary-color">Fazer Login</h2>
       <InputField id="email" label="E-mail" v-model:title="formData.email" :error="inputErrors.email" type="text" autocomplete="email" :isLoginPage="true" icon="user"/>
       <InputField id="password" label="Senha" v-model:title="formData.password" :error="inputErrors.password" type="password" autocomplete="current-password" :isLoginPage="true" icon="lock"/>
+      <div v-if="inputErrors.loginFail" class="text-[red] mb-[6px] text-[14px] font-[600]">
+        <font-awesome-icon icon="exclamation" class="text-[red] mr-[5px] text-[16px]"/>
+        {{ inputErrors.loginFail }}
+      </div>
       <button type="submit" class="py-[10px] px-[20px] mt-[10px] rounded-[999px] bg-primary-color text-[white] w-full mb-[10px]">Entrar</button>
     </form>
     <div class="mt-[40px] text-center">
