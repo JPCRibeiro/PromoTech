@@ -8,12 +8,12 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/produtos", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos" },
-    { "source": "/api/produtos/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/produtos/$1" },
-    { "source": "/api/fichas/(.*)", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/fichas/$1" },
-    { "source": "/api/registro", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/registro" },
-    { "source": "/api/login", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/login" },
-    { "source": "/api/user", "destination": "http://produtos-ambiente-env-1.eba-njrz2a2f.sa-east-1.elasticbeanstalk.com/api/user" },
+    { "source": "/api/produtos", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/produtos" },
+    { "source": "/api/produtos/(.*)", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/produtos/$1" },
+    { "source": "/api/fichas/(.*)", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/fichas/$1" },
+    { "source": "/api/registro", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/registro" },
+    { "source": "/api/login", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/login" },
+    { "source": "/api/user", "destination": "http://api-produtos.sa-east-1.elasticbeanstalk.com/api/user" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
