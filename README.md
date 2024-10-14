@@ -1,5 +1,5 @@
 <div align='center'>
-  <a align='center' href="https://jpcribeiro-promotech.vercel.app/" target="blank"><img align="center" src="https://jpcribeiro-portfolio.vercel.app/static/media/promotech.c752bf8b1c836606169c.png" height="130" /></a>
+  <a align='center' href="https://jpcribeiro-promotech.vercel.app/" target="blank"><img align="center" src="https://jpcribeiro.vercel.app/static/media/promotech.c752bf8b1c836606169c.png" height="130" /></a>
 </div>
 
 <h1 align='center'>
