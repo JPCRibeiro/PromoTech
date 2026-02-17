@@ -1,18 +1,15 @@
 from bs4 import BeautifulSoup  # type: ignore
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
-import mysql.connector # type: ignore
 from dotenv import load_dotenv # type: ignore
 import os
+import psycopg2
+import psycopg2.extras
 
 load_dotenv()
 
-conexao = mysql.connector.connect(
-  host=os.getenv('DB_HOST'),
-  user=os.getenv('DB_USER'),
-  password=os.getenv('DB_PASSWORD'),
-  database=os.getenv('DB_NAME')
-)
+conexao = psycopg2.connect(os.getenv("DB_URL"))
+cursor = conexao.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 cursor = conexao.cursor()
 
@@ -23,6 +20,7 @@ urls = [
 header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'}
 
 for url in urls:
+  print(f"🔗 Acessando {url} ...")
   req = Request(url, headers=header)
   
   try:
@@ -30,29 +28,47 @@ for url in urls:
     page = response.read()
     soup = BeautifulSoup(page, 'html.parser')
 
-    produtos = soup.find_all('div', class_='Paper_Paper__4XALQ Paper_Paper__bordered__cl5Rh Card_Card__Zd8Ef Card_Card__clicable__ewI68 ProductCard_ProductCard__WWKKW ProductCard_ProductCard__vertical__l4lvu')
-    
+    produtos = soup.find_all('article', class_=lambda c: c and 'ProductCard' in c)
+    print(f"🛍️ {len(produtos)} produtos encontrados")
+
     for produto in produtos:
-      imagem_element = produto.find('img')
-      produto_element = produto.find('h2', class_='Text_Text__ARJdp Text_MobileLabelXs__dHwGG Text_DesktopLabelSAtLarge__wWsED ProductCard_ProductCard_Name__U_mUQ')
-      valor_element = produto.find('p', class_='Text_Text__ARJdp Text_MobileHeadingS__HEz7L')
-      link_produto_element = produto.find('a', class_='ProductCard_ProductCard_Inner__gapsh')
+        # nome
+        nome_tag = produto.find('h3', attrs={'data-testid': 'product-card::name'})
+        nome = nome_tag.get_text(strip=True) if nome_tag else None
 
-      produto = produto_element.text.strip()
-      valor = valor_element.text.strip()
-      valor = valor.replace('R$', '').replace('.', '').replace(',', '.').strip()
-      imagem = imagem_element['src'] 
-      link = 'https://www.zoom.com.br' + link_produto_element['href'] 
+        # preço
+        preco_tag = produto.find('strong', attrs={'data-testid': 'product-card::price'})
+        preco = preco_tag.get_text(strip=True).replace('R$', '').replace('.', '').replace(',', '.').strip() if preco_tag else None
 
-      cursor.execute('SELECT produto FROM produtos WHERE produto=%s', (produto,))
-      if cursor.fetchone() is None:
-        cursor.execute('INSERT INTO produtos (produto, valor, imagem, link) VALUES (%s, %s, %s, %s)', (produto, valor, imagem, link))
-        conexao.commit()
+        # imagem
+        imagem_tag = produto.find('img', alt=lambda x: x and 'Imagem' in x)
+        imagem = imagem_tag['src'] if imagem_tag else None
+
+        # link
+        link_tag = produto.find('a', attrs={'data-testid': 'product-card::card'})
+        link = 'https://www.zoom.com.br' + link_tag['href'] if link_tag else None
+
+        if nome and preco and imagem and link:
+          print(f"✅ Produto: {nome} — R${preco}")
+          cursor.execute(
+              'SELECT produto FROM produtos WHERE produto=%s', (nome,)
+          )
+        if cursor.fetchone() is None:
+            cursor.execute(
+                'INSERT INTO produtos (produto, valor, imagem, link) VALUES (%s, %s, %s, %s)',
+                (nome, preco, imagem, link)
+            )
+            conexao.commit()
+            print(f"   ↳ Inserido no banco.")
+        else:
+            print(f"   ↳ Já existe no banco.")
+
         
   except HTTPError as e:
     print(f'HTTP Error: {e.reason}')
   except URLError as e:
     print(f'URL Error: {e.reason}')
-      
+
 cursor.close()
 conexao.close()
+print("🏁 Finalizado!")

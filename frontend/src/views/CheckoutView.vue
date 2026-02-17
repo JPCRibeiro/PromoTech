@@ -156,18 +156,15 @@ const finalizarPedido = async () => {
 }
 
 onMounted(() => {
-  if (!user.value) {
-    router.replace('/login');
-  } else if (!order.value) {
+  if (!order.value) {
     router.replace('/');
   }
-
   updatePageTitle()
 });
 </script>
 
 <template>
-  <section v-if="user" class="max-w-[1240px] w-full mx-auto p-[20px] mt-[100px]">
+  <section class="max-w-[1240px] w-full mx-auto p-[20px] mt-[100px]">
     <div v-if="compraRealizada === false">
       <div class="flex gap-[32px] max-media1024:flex-col mb-[60px]"> 
         <div class="flex-1">
@@ -312,7 +309,7 @@ onMounted(() => {
       </div>
     </div>
   </section>
-  <section v-else class="max-w-[1240px] w-full mx-auto p-[20px] mt-[100px]">
+  <section class="max-w-[1240px] w-full mx-auto p-[20px] mt-[100px]">
     <div class="mt-[100px] flex flex-col justify-center items-center">
       <p class="text-[28px] font-bold text-center">
         Sessão expirada!

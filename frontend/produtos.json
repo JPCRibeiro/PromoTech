@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "produto": "Notebook Dell Inspiron",
+    "slug": "notebook-dell-inspiron",
+    "valor": 3500,
+    "imagem": "https://via.placeholder.com/250x200?text=Notebook"
+  },
+  {
+    "id": 2,
+    "produto": "Smartphone Samsung Galaxy S22",
+    "slug": "smartphone-samsung-galaxy-s22",
+    "valor": 2800,
+    "imagem": "https://via.placeholder.com/250x200?text=Smartphone"
+  },
+  {
+    "id": 3,
+    "produto": "Fone de Ouvido Bluetooth JBL",
+    "slug": "fone-bluetooth-jbl",
+    "valor": 350,
+    "imagem": "https://via.placeholder.com/250x200?text=Fone"
+  },
+  {
+    "id": 4,
+    "produto": "Smart TV LG 55'' 4K",
+    "slug": "smart-tv-lg-55-4k",
+    "valor": 4200,
+    "imagem": "https://via.placeholder.com/250x200?text=Smart+TV"
+  }
+]

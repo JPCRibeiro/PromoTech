@@ -1,19 +1,19 @@
 <script setup>
-import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { RouterLink } from "vue-router";
 import ProductsPagination from "./ProductsPagination.vue";
 
-const produtos = ref([]);
+const produtos = ref([]); // já começa vazio
 const itemsPerPage = 12;
 const currentPage = ref(localStorage.getItem("currentPage") ? parseInt(localStorage.getItem("currentPage")) : 1);
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/api/produtos");
-    produtos.value = response.data;
+    const response = await fetch("https://api-produtos-t9we.onrender.com/api/produtos"); 
+    produtos.value = await response.json() || []; // fallback
   } catch (error) {
     console.error("Erro ao buscar os produtos:", error);
+    produtos.value = []; // garante array
   }
 });
 
@@ -23,17 +23,16 @@ const formatoDinheiro = (value) => {
 };
 
 const precoOriginal = (value) => value / 0.9;
-
 const precoParcelado = (value) => precoOriginal(value) / 12;
 
 const totalPages = computed(() => 
-  Math.ceil(produtos.value.length / itemsPerPage)
+  Math.ceil((produtos.value?.length || 0) / itemsPerPage)
 );
 
 const paginatedProdutos = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  return produtos.value.slice(start, end);
+  return (produtos.value || []).slice(start, end); // fallback
 });
 
 const updatePage = (page) => {

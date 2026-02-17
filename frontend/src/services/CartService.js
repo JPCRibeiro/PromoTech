@@ -10,6 +10,13 @@ export class CartService {
   }
 
   getCart() {
+    // sempre garante que tenha um carrinho válido
+    if (!cart.value) {
+      cart.value = new Cart();
+      cart.value.items = [];
+      cart.value.totalPrice = 0;
+      cart.value.totalCount = 0;
+    }
     return cart.value;
   }
 
@@ -19,7 +26,7 @@ export class CartService {
     if (cartItem)
       return;
 
-    cart.value.items.push( new Product(product));
+    cart.value.items.push(new Product(product));
     this.saveCart();
   }
 
@@ -48,6 +55,12 @@ export class CartService {
     const storedCart = JSON.parse(localStorage.getItem('carrinho'));
     if (storedCart) {
       cart.value = Object.assign(new Cart(), storedCart);
+    } else {
+      // se não existir nada no localStorage → cria mock vazio
+      cart.value = new Cart();
+      cart.value.items = [];
+      cart.value.totalPrice = 0;
+      cart.value.totalCount = 0;
     }
   }
 }
