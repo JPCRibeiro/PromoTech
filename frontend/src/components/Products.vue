@@ -9,7 +9,7 @@ const currentPage = ref(localStorage.getItem("currentPage") ? parseInt(localStor
 
 onMounted(async () => {
   try {
-    const response = await fetch("https://api-produtos-t9we.onrender.com/api/produtos"); 
+    const response = await fetch("https://promotech-api-produtos.fly.dev/api/produtos"); 
     produtos.value = await response.json() || []; // fallback
   } catch (error) {
     console.error("Erro ao buscar os produtos:", error);
